@@ -36,6 +36,18 @@ namespace Hockey_Database
             InitializeComponent();
         }
 
+        private bool CheckIfEmpty()
+        {
+            bool ret = true;
+
+            if (txtName_tm.Text.Length == 0 || cmbCoaches_tm.SelectedIndex == -1 || cmbLeagues_tm.SelectedIndex == -1 || cmbStadiums_tm.Text.Length == -1)
+            {
+                ret = false;
+            }
+
+            return ret;
+        }
+
         private void SelectTeamManagement()
         {
             dgTeamManagement.DataSource = db.Select(teamManagementQuery);
@@ -104,21 +116,31 @@ namespace Hockey_Database
             string teamEditQuery = "SELECT * FROM teams WHERE ID = " + id + ";";
             DataTable dt = db.Select(teamEditQuery);
 
-            if (dt.Rows.Count > 0)
+            if (CheckIfEmpty())
             {
-                string query = "UPDATE teams SET name='" + txtName_tm.Text + "', stadium_ID=" + cmbStadiums_tm.SelectedValue.ToString() + ", league_ID=" + cmbLeagues_tm.SelectedValue.ToString() + ", coach_ID=" + cmbCoaches_tm.SelectedValue.ToString() + " WHERE ID=" + id;
-                db.Update(query);
-                SelectTeamManagement();
+                if (dt.Rows.Count > 0)
+                {
+                    string query = "UPDATE teams SET name='" + txtName_tm.Text + "', stadium_ID=" + cmbStadiums_tm.SelectedValue.ToString() + ", league_ID=" + cmbLeagues_tm.SelectedValue.ToString() + ", coach_ID=" + cmbCoaches_tm.SelectedValue.ToString() + " WHERE ID=" + id;
+                    db.Update(query);
+                    MessageBox.Show("Tietojen päivitys onnistui!");
+                    SelectTeamManagement();
 
+                }
+                else
+                {
+                    string query = "INSERT INTO teams (name, stadium_ID, league_ID, coach_ID) " +
+                                    "VALUES ('" + txtName_tm.Text + "', " + cmbStadiums_tm.SelectedValue.ToString() + ", " + cmbLeagues_tm.SelectedValue.ToString() + ", " + cmbCoaches_tm.SelectedValue.ToString() + ");";
+
+                    db.Insert(query);
+                    MessageBox.Show("Tietojen lisäys onnistui!");
+                    SelectTeamManagement();
+                }
             }
             else
             {
-                string query = "INSERT INTO teams (name, stadium_ID, league_ID, coach_ID) " +
-                               "VALUES ('" + txtName_tm.Text + "', " + cmbStadiums_tm.SelectedValue.ToString() + ", " + cmbLeagues_tm.SelectedValue.ToString() + ", " + cmbCoaches_tm.SelectedValue.ToString() + ");";
-
-                db.Insert(query);
-                SelectTeamManagement();
+                MessageBox.Show("Täytä kentät!");
             }
+         
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -129,6 +151,7 @@ namespace Hockey_Database
                 {
                     string query = "DELETE FROM teams WHERE ID = " + id;
                     db.Delete(query);
+                    MessageBox.Show("Poisto onnistui!");
                     SelectTeamManagement();
                 }
             }

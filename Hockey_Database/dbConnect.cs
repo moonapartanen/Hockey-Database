@@ -17,13 +17,11 @@ namespace Hockey_Database
         private string uid;
         private string password;
 
-        //Constructor
         public dbConnect()
         {
             Initialize();
         }
 
-        //Initialize values
         private void Initialize()
         {
             server = "localhost";
@@ -36,9 +34,7 @@ namespace Hockey_Database
 
             connection = new MySqlConnection(connectionString);
         }
-
-       
-        //open connection to database
+    
         public bool OpenConnection()
         {
                 try
@@ -51,18 +47,17 @@ namespace Hockey_Database
                     switch (ex.Number)
                     {
                         case 0:
-                            MessageBox.Show("Cannot connect to server.  Contact administrator");
+                            MessageBox.Show("Ei yhteyttä tietokantaan.");
                             break;
 
                         case 1045:
-                            MessageBox.Show("Invalid username/password, please try again");
+                            MessageBox.Show("Väärät käyttäjätunnukset tietokantaan, yritä uudelleen!");
                             break;
                     }
                     return false;
 }
         }
 
-        //Close connection
         public bool CloseConnection()
         {
             try
@@ -89,13 +84,8 @@ namespace Hockey_Database
         {
             if (this.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                //Execute command
                 cmd.ExecuteNonQuery();
-
-                //close connection
                 this.CloseConnection();
             }
         }
@@ -104,13 +94,8 @@ namespace Hockey_Database
         {
             if (this.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                //Execute command
                 cmd.ExecuteNonQuery();
-
-                //close connection
                 this.CloseConnection();
             }
         }
@@ -119,16 +104,12 @@ namespace Hockey_Database
         {
             if (this.OpenConnection() == true)
             {
-                //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-
-                //Execute command
                 cmd.ExecuteNonQuery();
-
-                //close connection
                 this.CloseConnection();
             }
         }
+
         //this.CloseConnection(); TÄMÄ PITÄÄ TEHDÄ OHJELMAN SULKEUDUTTUA
     }
 }

@@ -132,20 +132,30 @@ namespace Hockey_Database
                 table = "stadiums";
             }
 
-
-            if (dt.Rows.Count > 0)
+            if (txtNameOtherManagement.Text.Length > 0)
             {
-                string query = "UPDATE " + table + " SET name='" + txtNameOtherManagement.Text + "' WHERE ID=" + id;
-                db.Update(query);
-                UpdateDataGridView();
+                if (dt.Rows.Count > 0)
+                {
+                    string query = "UPDATE " + table + " SET name='" + txtNameOtherManagement.Text + "' WHERE ID=" + id;
+                    db.Update(query);
+                    MessageBox.Show("Tietojen päivitys onnitui!");
+                    UpdateDataGridView();
 
+                }
+                else
+                {
+                    string query = "INSERT INTO " + table + " (name) VALUES ('" + txtNameOtherManagement.Text + "');";
+                    db.Insert(query);
+                    MessageBox.Show("Tietojen lisäys onnitui!");
+                    UpdateDataGridView();
+                }
             }
             else
             {
-                string query = "INSERT INTO " + table + " (name) VALUES ('" + txtNameOtherManagement.Text + "');";
-                db.Insert(query);
-                UpdateDataGridView();
+                MessageBox.Show("Täytä kentät!");
             }
+
+
         }
 
         private void btnDel_Click(object sender, EventArgs e)
@@ -174,6 +184,7 @@ namespace Hockey_Database
                 {
                     string query = "DELETE FROM " + table + " WHERE ID = " + id;
                     db.Delete(query);
+                    MessageBox.Show("Poisto onnistui!");
                     UpdateDataGridView();
                     txtNameOtherManagement.Text = "";
                 }
