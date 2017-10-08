@@ -1,0 +1,12 @@
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\bin\Debug\Hockey_Database.exe.config
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\bin\Debug\Hockey_Database.exe
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\bin\Debug\Hockey_Database.pdb
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\bin\Debug\MySql.Data.dll
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.csprojResolveAssemblyReference.cache
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.Properties.Resources.resources
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.csproj.GenerateResource.Cache
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.csproj.CoreCompileInputs.cache
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.exe
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.pdb
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.HockeyDatabase.resources
+C:\Users\moona\Desktop\moona\Hockey_Database\Hockey_Database\obj\Debug\Hockey_Database.PlayerManagement.resources
