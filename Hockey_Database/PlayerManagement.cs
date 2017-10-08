@@ -29,7 +29,27 @@ namespace Hockey_Database
             InitializeComponent();
         }
 
-        private void SelectPlayerManagement()
+        private int GetPositionId()
+        {
+            int positionID = 0;
+
+            if (rbForward_pm.Checked)
+            {
+                positionID = 1;
+            }
+            else if (rbDefender_pm.Checked)
+            {
+                positionID = 2;
+            }
+            else if (rbGoalie_pm.Checked)
+            {
+                positionID = 3;
+            }
+
+            return positionID;
+        }
+
+        private void SelectPlayerManagement()   // HAKEE TIEDOT DATAGRIDVIEWIIN
         {
             dgPlayerManagement.DataSource = db.Select(playerManagementQuery);
 
@@ -81,52 +101,54 @@ namespace Hockey_Database
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)     // TYHJENNETÄÄN KENTÄT
+        private void btnClear_Click(object sender, EventArgs e)     // TYHJENNETÄÄN KENTÄT      TODO: TÄHÄN VARMASTI PAREMPI TAPA OLEMASSA
         {
-            dgPlayerManagement.ClearSelection();        // TODO: TÄHÄN VARMASTI PAREMPI TAPA OLEMASSA
+            dgPlayerManagement.ClearSelection();       
             txtName_pm.Text = "";
-            cmbTeams_pm.SelectedIndex = -1;             // TODO: KORJAA TÄMÄ
+            cmbTeams_pm.Text = "";      
             txtNumber_pm.Text = "";
-            dpDateOfBirth_pm.Value = DateTime.Now;
+            dpDateOfBirth_pm.Text = "";
             rbForward_pm.Checked = false;
             rbDefender_pm.Checked = false;
             rbGoalie_pm.Checked = false;
             id = 0;
         }
 
+        private void btnDel_Click(object sender, EventArgs e)
+        {
+            if (dgPlayerManagement.SelectedRows.Count > 0)
+            {
+                string query = "DELETE FROM players WHERE ID = " + dgPlayerManagement.SelectedRows[0].Cells[0].Value + string.Empty;
+                db.Delete(query);
+                SelectPlayerManagement();
+            }
+            else
+            {
+                MessageBox.Show("Et ole valinnut poistettavaa riviä!");
+            }
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             string playerEditQuery = "SELECT * FROM players WHERE ID = " + id + ";";
-
             DataTable dt = db.Select(playerEditQuery);
 
             if (dt.Rows.Count > 0)
             {
 
-                // TÄHÄN UPDATE
-               
+                string date = dpDateOfBirth_pm.Value.ToString("yyyy-MM-dd").Replace('.', '-');
+                string query = "UPDATE players SET name='" + txtName_pm.Text + "', dateOfBirth='" + date + "', number=" + txtNumber_pm.Text + ", team_ID=" + cmbTeams_pm.SelectedValue.ToString() + ", position_ID=" + GetPositionId() + " WHERE ID=" + id;
+                db.Update(query);
+                SelectPlayerManagement();
+
             }
             else
             {
-                if (rbForward_pm.Checked)
-                {
-                    positionID = 1;
-                }
-                else if (rbDefender_pm.Checked)
-                {
-                    positionID = 2;
-                }
-                else if (rbGoalie_pm.Checked)   
-                {
-                    positionID = 3;
-                }
-
-
                 string date = dpDateOfBirth_pm.Value.ToString("yyyy-MM-dd").Replace('.', '-');
                 string query = "INSERT INTO players (name, dateOfBirth, number, team_ID, position_ID) " +
                                "VALUES ('" + txtName_pm.Text + "', '" + date + "', "
                                + txtNumber_pm.Text + ", " + cmbTeams_pm.SelectedValue.ToString() + ", "
-                               + positionID + ");";
+                               + GetPositionId() + ");";
 
                 db.Insert(query);
                 SelectPlayerManagement();

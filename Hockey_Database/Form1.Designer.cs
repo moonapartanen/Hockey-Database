@@ -45,7 +45,7 @@
             this.hallintaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuPlayers = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTeams = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuCities = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOther = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tabMain = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -58,8 +58,6 @@
             this.lblTeamName = new System.Windows.Forms.Label();
             this.lblCoach = new System.Windows.Forms.Label();
             this.dgTeams = new System.Windows.Forms.DataGridView();
-            this.liigatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stadionitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgPlayers)).BeginInit();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -209,9 +207,7 @@
             this.hallintaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuPlayers,
             this.mnuTeams,
-            this.mnuCities,
-            this.liigatToolStripMenuItem,
-            this.stadionitToolStripMenuItem});
+            this.mnuOther});
             this.hallintaToolStripMenuItem.Name = "hallintaToolStripMenuItem";
             this.hallintaToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.hallintaToolStripMenuItem.Text = "Hallinta";
@@ -228,12 +224,14 @@
             this.mnuTeams.Name = "mnuTeams";
             this.mnuTeams.Size = new System.Drawing.Size(152, 22);
             this.mnuTeams.Text = "Joukkueet";
+            this.mnuTeams.Click += new System.EventHandler(this.mnuTeams_Click);
             // 
-            // mnuCities
+            // mnuOther
             // 
-            this.mnuCities.Name = "mnuCities";
-            this.mnuCities.Size = new System.Drawing.Size(152, 22);
-            this.mnuCities.Text = "Valmentajat";
+            this.mnuOther.Name = "mnuOther";
+            this.mnuOther.Size = new System.Drawing.Size(152, 22);
+            this.mnuOther.Text = "Muut";
+            this.mnuOther.Click += new System.EventHandler(this.mnuOther_Click);
             // 
             // contextMenuStrip1
             // 
@@ -355,18 +353,6 @@
             this.dgTeams.Size = new System.Drawing.Size(628, 332);
             this.dgTeams.TabIndex = 1;
             // 
-            // liigatToolStripMenuItem
-            // 
-            this.liigatToolStripMenuItem.Name = "liigatToolStripMenuItem";
-            this.liigatToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.liigatToolStripMenuItem.Text = "Liigat";
-            // 
-            // stadionitToolStripMenuItem
-            // 
-            this.stadionitToolStripMenuItem.Name = "stadionitToolStripMenuItem";
-            this.stadionitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.stadionitToolStripMenuItem.Text = "Stadionit";
-            // 
             // HockeyDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -408,7 +394,7 @@
         private System.Windows.Forms.ToolStripMenuItem hallintaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuPlayers;
         private System.Windows.Forms.ToolStripMenuItem mnuTeams;
-        private System.Windows.Forms.ToolStripMenuItem mnuCities;
+        private System.Windows.Forms.ToolStripMenuItem mnuOther;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ComboBox cmbYears;
         private System.Windows.Forms.TabControl tabMain;
@@ -426,8 +412,6 @@
         private System.Windows.Forms.Label lblTeamName;
         private System.Windows.Forms.Label lblCoach;
         private System.Windows.Forms.DataGridView dgTeams;
-        private System.Windows.Forms.ToolStripMenuItem liigatToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stadionitToolStripMenuItem;
     }
 }
 

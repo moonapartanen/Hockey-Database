@@ -53,6 +53,26 @@ namespace Hockey_Database
             db.OpenConnection();                                        // AVATAAN TIETOKANTAYHTEYS DB-OLIOLLA
             SelectAllPlayers();
             SelectAllTeams();
+            FillComboBoxes();
+        }
+
+        private void FillComboBoxes()
+        {
+            cmbLeagueTeams.DataSource = db.Select(leagueQuery);              // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
+            cmbLeagueTeams.DisplayMember = "name";
+            cmbLeagueTeams.SelectedIndex = -1;
+
+            cmbYears.DataSource = db.Select(yearOfBirthQuery);              // HAETAAN SYNTYMÄVUOSI-COMBOBOXIIN VUODET
+            cmbYears.DisplayMember = "SUBSTRING(dateOfBirth, 1, 4)";
+            cmbYears.SelectedIndex = -1;
+
+            cmbLeague.DataSource = db.Select(leagueQuery);                  // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
+            cmbLeague.DisplayMember = "name";
+            cmbLeague.SelectedIndex = -1;
+
+            cmbPosition.DataSource = db.Select(positionQuery);              // HAETAAN PELIPAIKKA-COMBOBOXIIN PELIPAIKAT
+            cmbPosition.DisplayMember = "position";
+            cmbPosition.SelectedIndex = -1;
         }
 
         private void SelectAllTeams()
@@ -64,9 +84,6 @@ namespace Hockey_Database
             dgTeams.Columns[2].HeaderText = "Kotiareena:";
             dgTeams.Columns[3].HeaderText = "Liiga:";
 
-            cmbLeagueTeams.DataSource = db.Select(leagueQuery);              // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
-            cmbLeagueTeams.DisplayMember = "name";
-            cmbLeagueTeams.SelectedIndex = -1;
         }
 
         private void SelectAllPlayers()
@@ -80,17 +97,6 @@ namespace Hockey_Database
             dgPlayers.Columns[4].HeaderText = "Pelinumero:";
             dgPlayers.Columns[5].HeaderText = "Pelipaikka:";
 
-            cmbYears.DataSource = db.Select(yearOfBirthQuery);              // HAETAAN SYNTYMÄVUOSI-COMBOBOXIIN VUODET
-            cmbYears.DisplayMember = "SUBSTRING(dateOfBirth, 1, 4)";
-            cmbYears.SelectedIndex = -1;
-
-            cmbLeague.DataSource = db.Select(leagueQuery);                  // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
-            cmbLeague.DisplayMember = "name";
-            cmbLeague.SelectedIndex = -1;
-
-            cmbPosition.DataSource = db.Select(positionQuery);              // HAETAAN PELIPAIKKA-COMBOBOXIIN PELIPAIKAT
-            cmbPosition.DisplayMember = "position";
-            cmbPosition.SelectedIndex = -1;
         }
 
         private void PlayersSearchParameters_Changed(object sender, EventArgs e)   // FILTTERÖIDÄÄN PELAAJA-DATAGRIDVIEWIÄ TIETOJEN PERUSTEELLA
@@ -117,6 +123,25 @@ namespace Hockey_Database
         {
             PlayerManagement pm = new PlayerManagement();
             pm.ShowDialog();
+            SelectAllPlayers();
+            SelectAllTeams();
         }
+
+        private void mnuTeams_Click(object sender, EventArgs e)
+        {
+            TeamManagement tm = new TeamManagement();
+            tm.ShowDialog();
+            SelectAllPlayers();
+            SelectAllTeams();
+        }
+
+        private void mnuOther_Click(object sender, EventArgs e)
+        {
+            OtherManagement om = new OtherManagement();
+            om.ShowDialog();
+            SelectAllPlayers();
+            SelectAllTeams();
+        }
+
     }
 }

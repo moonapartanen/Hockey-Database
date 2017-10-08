@@ -100,19 +100,14 @@ namespace Hockey_Database
             }
         }
 
-        public void Update(string query)
+        public void Delete(string query)
         {
-            //Open connection
             if (this.OpenConnection() == true)
             {
-                //create mysql command
-                MySqlCommand cmd = new MySqlCommand();
-                //Assign the query using CommandText
-                cmd.CommandText = query;
-                //Assign the connection using Connection
-                cmd.Connection = connection;
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                //Execute query
+                //Execute command
                 cmd.ExecuteNonQuery();
 
                 //close connection
@@ -120,5 +115,20 @@ namespace Hockey_Database
             }
         }
 
+        public void Update(string query)
+        {
+            if (this.OpenConnection() == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                //close connection
+                this.CloseConnection();
+            }
+        }
+        //this.CloseConnection(); TÄMÄ PITÄÄ TEHDÄ OHJELMAN SULKEUDUTTUA
     }
 }

@@ -30,21 +30,21 @@
         {
             this.dgPlayerManagement = new System.Windows.Forms.DataGridView();
             this.panel_pm = new System.Windows.Forms.Panel();
-            this.lblName_pm = new System.Windows.Forms.Label();
-            this.lbDateOfBirth_pm = new System.Windows.Forms.Label();
-            this.lblNumber_pm = new System.Windows.Forms.Label();
-            this.lblTeam_pm = new System.Windows.Forms.Label();
-            this.txtName_pm = new System.Windows.Forms.TextBox();
-            this.dpDateOfBirth_pm = new System.Windows.Forms.DateTimePicker();
-            this.txtNumber_pm = new System.Windows.Forms.TextBox();
+            this.cmbTeams_pm = new System.Windows.Forms.ComboBox();
             this.rbgPostion_pm = new System.Windows.Forms.GroupBox();
-            this.rbForward_pm = new System.Windows.Forms.RadioButton();
-            this.rbDefender_pm = new System.Windows.Forms.RadioButton();
             this.rbGoalie_pm = new System.Windows.Forms.RadioButton();
+            this.rbDefender_pm = new System.Windows.Forms.RadioButton();
+            this.rbForward_pm = new System.Windows.Forms.RadioButton();
+            this.txtNumber_pm = new System.Windows.Forms.TextBox();
+            this.dpDateOfBirth_pm = new System.Windows.Forms.DateTimePicker();
+            this.txtName_pm = new System.Windows.Forms.TextBox();
+            this.lblTeam_pm = new System.Windows.Forms.Label();
+            this.lblNumber_pm = new System.Windows.Forms.Label();
+            this.lbDateOfBirth_pm = new System.Windows.Forms.Label();
+            this.lblName_pm = new System.Windows.Forms.Label();
             this.btnDel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.cmbTeams_pm = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgPlayerManagement)).BeginInit();
             this.panel_pm.SuspendLayout();
             this.rbgPostion_pm.SuspendLayout();
@@ -76,68 +76,13 @@
             this.panel_pm.Size = new System.Drawing.Size(248, 341);
             this.panel_pm.TabIndex = 1;
             // 
-            // lblName_pm
+            // cmbTeams_pm
             // 
-            this.lblName_pm.AutoSize = true;
-            this.lblName_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName_pm.Location = new System.Drawing.Point(7, 17);
-            this.lblName_pm.Name = "lblName_pm";
-            this.lblName_pm.Size = new System.Drawing.Size(38, 16);
-            this.lblName_pm.TabIndex = 0;
-            this.lblName_pm.Text = "Nimi:";
-            // 
-            // lbDateOfBirth_pm
-            // 
-            this.lbDateOfBirth_pm.AutoSize = true;
-            this.lbDateOfBirth_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDateOfBirth_pm.Location = new System.Drawing.Point(7, 68);
-            this.lbDateOfBirth_pm.Name = "lbDateOfBirth_pm";
-            this.lbDateOfBirth_pm.Size = new System.Drawing.Size(89, 16);
-            this.lbDateOfBirth_pm.TabIndex = 1;
-            this.lbDateOfBirth_pm.Text = "Syntymäaika:";
-            // 
-            // lblNumber_pm
-            // 
-            this.lblNumber_pm.AutoSize = true;
-            this.lblNumber_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNumber_pm.Location = new System.Drawing.Point(7, 122);
-            this.lblNumber_pm.Name = "lblNumber_pm";
-            this.lblNumber_pm.Size = new System.Drawing.Size(79, 16);
-            this.lblNumber_pm.TabIndex = 2;
-            this.lblNumber_pm.Text = "Pelinumero:";
-            // 
-            // lblTeam_pm
-            // 
-            this.lblTeam_pm.AutoSize = true;
-            this.lblTeam_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTeam_pm.Location = new System.Drawing.Point(7, 172);
-            this.lblTeam_pm.Name = "lblTeam_pm";
-            this.lblTeam_pm.Size = new System.Drawing.Size(62, 16);
-            this.lblTeam_pm.TabIndex = 3;
-            this.lblTeam_pm.Text = "Joukkue:";
-            // 
-            // txtName_pm
-            // 
-            this.txtName_pm.Location = new System.Drawing.Point(10, 37);
-            this.txtName_pm.Name = "txtName_pm";
-            this.txtName_pm.Size = new System.Drawing.Size(223, 22);
-            this.txtName_pm.TabIndex = 5;
-            // 
-            // dpDateOfBirth_pm
-            // 
-            this.dpDateOfBirth_pm.Location = new System.Drawing.Point(10, 88);
-            this.dpDateOfBirth_pm.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
-            this.dpDateOfBirth_pm.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
-            this.dpDateOfBirth_pm.Name = "dpDateOfBirth_pm";
-            this.dpDateOfBirth_pm.Size = new System.Drawing.Size(223, 22);
-            this.dpDateOfBirth_pm.TabIndex = 6;
-            // 
-            // txtNumber_pm
-            // 
-            this.txtNumber_pm.Location = new System.Drawing.Point(10, 142);
-            this.txtNumber_pm.Name = "txtNumber_pm";
-            this.txtNumber_pm.Size = new System.Drawing.Size(86, 22);
-            this.txtNumber_pm.TabIndex = 7;
+            this.cmbTeams_pm.FormattingEnabled = true;
+            this.cmbTeams_pm.Location = new System.Drawing.Point(10, 192);
+            this.cmbTeams_pm.Name = "cmbTeams_pm";
+            this.cmbTeams_pm.Size = new System.Drawing.Size(223, 24);
+            this.cmbTeams_pm.TabIndex = 10;
             // 
             // rbgPostion_pm
             // 
@@ -151,16 +96,16 @@
             this.rbgPostion_pm.TabStop = false;
             this.rbgPostion_pm.Text = "Pelipaikka:";
             // 
-            // rbForward_pm
+            // rbGoalie_pm
             // 
-            this.rbForward_pm.AutoSize = true;
-            this.rbForward_pm.Location = new System.Drawing.Point(7, 22);
-            this.rbForward_pm.Name = "rbForward_pm";
-            this.rbForward_pm.Size = new System.Drawing.Size(92, 20);
-            this.rbForward_pm.TabIndex = 0;
-            this.rbForward_pm.TabStop = true;
-            this.rbForward_pm.Text = "Hyökkääjä";
-            this.rbForward_pm.UseVisualStyleBackColor = true;
+            this.rbGoalie_pm.AutoSize = true;
+            this.rbGoalie_pm.Location = new System.Drawing.Point(7, 76);
+            this.rbGoalie_pm.Name = "rbGoalie_pm";
+            this.rbGoalie_pm.Size = new System.Drawing.Size(87, 20);
+            this.rbGoalie_pm.TabIndex = 2;
+            this.rbGoalie_pm.TabStop = true;
+            this.rbGoalie_pm.Text = "Maalivahti";
+            this.rbGoalie_pm.UseVisualStyleBackColor = true;
             // 
             // rbDefender_pm
             // 
@@ -173,16 +118,79 @@
             this.rbDefender_pm.Text = "Puolustaja";
             this.rbDefender_pm.UseVisualStyleBackColor = true;
             // 
-            // rbGoalie_pm
+            // rbForward_pm
             // 
-            this.rbGoalie_pm.AutoSize = true;
-            this.rbGoalie_pm.Location = new System.Drawing.Point(7, 76);
-            this.rbGoalie_pm.Name = "rbGoalie_pm";
-            this.rbGoalie_pm.Size = new System.Drawing.Size(87, 20);
-            this.rbGoalie_pm.TabIndex = 2;
-            this.rbGoalie_pm.TabStop = true;
-            this.rbGoalie_pm.Text = "Maalivahti";
-            this.rbGoalie_pm.UseVisualStyleBackColor = true;
+            this.rbForward_pm.AutoSize = true;
+            this.rbForward_pm.Location = new System.Drawing.Point(7, 22);
+            this.rbForward_pm.Name = "rbForward_pm";
+            this.rbForward_pm.Size = new System.Drawing.Size(92, 20);
+            this.rbForward_pm.TabIndex = 0;
+            this.rbForward_pm.TabStop = true;
+            this.rbForward_pm.Text = "Hyökkääjä";
+            this.rbForward_pm.UseVisualStyleBackColor = true;
+            // 
+            // txtNumber_pm
+            // 
+            this.txtNumber_pm.Location = new System.Drawing.Point(10, 142);
+            this.txtNumber_pm.Name = "txtNumber_pm";
+            this.txtNumber_pm.Size = new System.Drawing.Size(86, 22);
+            this.txtNumber_pm.TabIndex = 7;
+            // 
+            // dpDateOfBirth_pm
+            // 
+            this.dpDateOfBirth_pm.Location = new System.Drawing.Point(10, 88);
+            this.dpDateOfBirth_pm.MaxDate = new System.DateTime(2020, 12, 31, 0, 0, 0, 0);
+            this.dpDateOfBirth_pm.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
+            this.dpDateOfBirth_pm.Name = "dpDateOfBirth_pm";
+            this.dpDateOfBirth_pm.Size = new System.Drawing.Size(223, 22);
+            this.dpDateOfBirth_pm.TabIndex = 6;
+            // 
+            // txtName_pm
+            // 
+            this.txtName_pm.Location = new System.Drawing.Point(10, 37);
+            this.txtName_pm.Name = "txtName_pm";
+            this.txtName_pm.Size = new System.Drawing.Size(223, 22);
+            this.txtName_pm.TabIndex = 5;
+            // 
+            // lblTeam_pm
+            // 
+            this.lblTeam_pm.AutoSize = true;
+            this.lblTeam_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTeam_pm.Location = new System.Drawing.Point(7, 172);
+            this.lblTeam_pm.Name = "lblTeam_pm";
+            this.lblTeam_pm.Size = new System.Drawing.Size(62, 16);
+            this.lblTeam_pm.TabIndex = 3;
+            this.lblTeam_pm.Text = "Joukkue:";
+            // 
+            // lblNumber_pm
+            // 
+            this.lblNumber_pm.AutoSize = true;
+            this.lblNumber_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumber_pm.Location = new System.Drawing.Point(7, 122);
+            this.lblNumber_pm.Name = "lblNumber_pm";
+            this.lblNumber_pm.Size = new System.Drawing.Size(79, 16);
+            this.lblNumber_pm.TabIndex = 2;
+            this.lblNumber_pm.Text = "Pelinumero:";
+            // 
+            // lbDateOfBirth_pm
+            // 
+            this.lbDateOfBirth_pm.AutoSize = true;
+            this.lbDateOfBirth_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDateOfBirth_pm.Location = new System.Drawing.Point(7, 68);
+            this.lbDateOfBirth_pm.Name = "lbDateOfBirth_pm";
+            this.lbDateOfBirth_pm.Size = new System.Drawing.Size(89, 16);
+            this.lbDateOfBirth_pm.TabIndex = 1;
+            this.lbDateOfBirth_pm.Text = "Syntymäaika:";
+            // 
+            // lblName_pm
+            // 
+            this.lblName_pm.AutoSize = true;
+            this.lblName_pm.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblName_pm.Location = new System.Drawing.Point(7, 17);
+            this.lblName_pm.Name = "lblName_pm";
+            this.lblName_pm.Size = new System.Drawing.Size(38, 16);
+            this.lblName_pm.TabIndex = 0;
+            this.lblName_pm.Text = "Nimi:";
             // 
             // btnDel
             // 
@@ -193,6 +201,7 @@
             this.btnDel.TabIndex = 2;
             this.btnDel.Text = "Poista";
             this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
             // btnSave
             // 
@@ -215,14 +224,6 @@
             this.btnClear.Text = "Lisää uusi pelaaja";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
-            // 
-            // cmbTeams_pm
-            // 
-            this.cmbTeams_pm.FormattingEnabled = true;
-            this.cmbTeams_pm.Location = new System.Drawing.Point(10, 192);
-            this.cmbTeams_pm.Name = "cmbTeams_pm";
-            this.cmbTeams_pm.Size = new System.Drawing.Size(223, 24);
-            this.cmbTeams_pm.TabIndex = 10;
             // 
             // PlayerManagement
             // 
