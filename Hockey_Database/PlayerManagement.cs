@@ -12,14 +12,6 @@ namespace Hockey_Database
 {
     public partial class PlayerManagement : Form
     {
-        string playerManagementQuery = "SELECT players.ID, players.name, players.dateOfBirth, players.number, teams.name, positions.position " +
-                                       "FROM players " +
-                                       "INNER JOIN teams ON players.team_ID = teams.ID " +
-                                       "INNER JOIN positions ON players.position_ID = positions.ID; ";
-
-        public string teamsQuery = "SELECT DISTINCT ID, name " +
-                                    "FROM teams";
-
         // LUODAAN DB-OLIO
         dbConnect db = new dbConnect();
         int id, positionID;
@@ -70,7 +62,7 @@ namespace Hockey_Database
 
         private void SelectPlayerManagement()   // HAKEE TIEDOT DATAGRIDVIEWIIN
         {
-            dgPlayerManagement.DataSource = db.Select(playerManagementQuery);
+            dgPlayerManagement.DataSource = db.Select(db.playerManagementQuery);
 
             dgPlayerManagement.Columns[0].HeaderText = "ID:";                    
             dgPlayerManagement.Columns[1].HeaderText = "Pelaajan nimi:";
@@ -86,7 +78,7 @@ namespace Hockey_Database
             SelectPlayerManagement();
 
             cmbTeams_pm.SelectedIndex = -1;
-            cmbTeams_pm.DataSource = db.Select(teamsQuery);
+            cmbTeams_pm.DataSource = db.Select(db.teamsQuery);
             cmbTeams_pm.DisplayMember = "name";
             cmbTeams_pm.ValueMember = "ID";
         }
@@ -138,14 +130,24 @@ namespace Hockey_Database
             if (dgPlayerManagement.SelectedRows.Count > 0)
             {
                 string query = "DELETE FROM players WHERE ID = " + dgPlayerManagement.SelectedRows[0].Cells[0].Value + string.Empty;
-                db.Delete(query);
-                MessageBox.Show("Poisto onnistui!");
+                db.ManageDatabase(query);
+                //MessageBox.Show("Poisto onnistui!");
                 SelectPlayerManagement();
             }
             else
             {
                 MessageBox.Show("Et ole valinnut poistettavaa riviä!");
             }
+        }
+
+        private void lblTooltip_MouseHover(object sender, EventArgs e)
+        {
+            toolTipPlayerManagement.Show("Valitse alasvetovalikosta tietokannan taulu, jota haluat muokata. \n" +
+                            "Jos haluat lisätä tauluun tietoa, kirjoita tiedot kenttiin ja paina \n" +
+                            "'Tallenna'-painiketta. Jos haluat muokata jo olemassa olevaa tieta, \n" +
+                            "valitse haluamasi rivi ja muokkaa tietoja kentistä. Paina muokkauksen \n" +
+                            "jäkeen 'Tallenna'-painiketta. Poistaminen onnistuu valitsemalla ensin rivi \n" +
+                            "ja sen jälkeen painamalla 'Poista'-painiketta. ", lblTooltip);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -160,8 +162,8 @@ namespace Hockey_Database
 
                     string date = dpDateOfBirth_pm.Value.ToString("yyyy-MM-dd").Replace('.', '-');
                     string query = "UPDATE players SET name='" + txtName_pm.Text + "', dateOfBirth='" + date + "', number=" + txtNumber_pm.Text + ", team_ID=" + cmbTeams_pm.SelectedValue.ToString() + ", position_ID=" + GetPositionId() + " WHERE ID=" + id;
-                    db.Update(query);
-                    MessageBox.Show("Tietojen päivitys onnistui!");
+                    db.ManageDatabase(query);
+                    //MessageBox.Show("Tietojen päivitys onnistui!");
                     SelectPlayerManagement();
 
                 }
@@ -173,8 +175,8 @@ namespace Hockey_Database
                                    + txtNumber_pm.Text + ", " + cmbTeams_pm.SelectedValue.ToString() + ", "
                                    + GetPositionId() + ");";
 
-                    db.Insert(query);
-                    MessageBox.Show("Tietojen lisäys onnistui!");
+                    db.ManageDatabase(query);
+                    // MessageBox.Show("Tietojen lisäys onnistui!");
                     SelectPlayerManagement();
                 }
             }

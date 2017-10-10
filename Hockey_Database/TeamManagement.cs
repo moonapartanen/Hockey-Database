@@ -12,23 +12,7 @@ namespace Hockey_Database
 {
     public partial class TeamManagement : Form
     {
-        string teamManagementQuery = "SELECT teams.ID, teams.name, stadiums.name, leagues.name, coaches.name " +
-                                     "FROM teams " +
-                                     "INNER JOIN stadiums ON teams.stadium_ID = stadiums.ID " +
-                                     "INNER JOIN leagues ON teams.league_ID = leagues.ID " +
-                                     "INNER JOIN coaches ON teams.coach_ID = coaches.ID ";
-
-        string stadiumsQuery = "SELECT DISTINCT ID, name " +
-                                    "FROM stadiums";
-
-        string leaguesQuery = "SELECT DISTINCT ID, name " +
-                              "FROM leagues";
-
-        string coachesQuery = "SELECT DISTINCT ID, name " +
-                              "FROM coaches";
-
         dbConnect db = new dbConnect();
-
         int id;
 
         public TeamManagement()
@@ -50,7 +34,7 @@ namespace Hockey_Database
 
         private void SelectTeamManagement()
         {
-            dgTeamManagement.DataSource = db.Select(teamManagementQuery);
+            dgTeamManagement.DataSource = db.Select(db.teamManagementQuery);
 
             dgTeamManagement.Columns[0].HeaderText = "ID:";
             dgTeamManagement.Columns[1].HeaderText = "Joukkueen nimi:";
@@ -65,17 +49,17 @@ namespace Hockey_Database
         {
             // HAETAAN COMBOBOXEIHIN TIEDOT
 
-            cmbStadiums_tm.DataSource = db.Select(stadiumsQuery);
+            cmbStadiums_tm.DataSource = db.Select(db.stadiumsQuery);
             cmbStadiums_tm.DisplayMember = "name";
             cmbStadiums_tm.ValueMember = "ID";
             cmbStadiums_tm.SelectedIndex = -1; 
 
-            cmbLeagues_tm.DataSource = db.Select(leaguesQuery);
+            cmbLeagues_tm.DataSource = db.Select(db.leaguesQuery);
             cmbLeagues_tm.DisplayMember = "name";
             cmbLeagues_tm.ValueMember = "ID";
             cmbLeagues_tm.SelectedIndex = -1;
 
-            cmbCoaches_tm.DataSource = db.Select(coachesQuery);
+            cmbCoaches_tm.DataSource = db.Select(db.coachesQuery);
             cmbCoaches_tm.DisplayMember = "name";
             cmbCoaches_tm.ValueMember = "ID";
             cmbCoaches_tm.SelectedIndex = -1;
@@ -121,8 +105,8 @@ namespace Hockey_Database
                 if (dt.Rows.Count > 0)
                 {
                     string query = "UPDATE teams SET name='" + txtName_tm.Text + "', stadium_ID=" + cmbStadiums_tm.SelectedValue.ToString() + ", league_ID=" + cmbLeagues_tm.SelectedValue.ToString() + ", coach_ID=" + cmbCoaches_tm.SelectedValue.ToString() + " WHERE ID=" + id;
-                    db.Update(query);
-                    MessageBox.Show("Tietojen päivitys onnistui!");
+                    db.ManageDatabase(query);
+                    // MessageBox.Show("Tietojen päivitys onnistui!");
                     SelectTeamManagement();
 
                 }
@@ -131,8 +115,8 @@ namespace Hockey_Database
                     string query = "INSERT INTO teams (name, stadium_ID, league_ID, coach_ID) " +
                                     "VALUES ('" + txtName_tm.Text + "', " + cmbStadiums_tm.SelectedValue.ToString() + ", " + cmbLeagues_tm.SelectedValue.ToString() + ", " + cmbCoaches_tm.SelectedValue.ToString() + ");";
 
-                    db.Insert(query);
-                    MessageBox.Show("Tietojen lisäys onnistui!");
+                    db.ManageDatabase(query);
+                    // MessageBox.Show("Tietojen lisäys onnistui!");
                     SelectTeamManagement();
                 }
             }
@@ -150,8 +134,8 @@ namespace Hockey_Database
                 if (MessageBox.Show("Jos valitsemassasi joukkueessa on pelaajia, pelaajat poistetaan joukkueen mukana. Haluatko silti poistaa joukkueen?", "Varoitus", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     string query = "DELETE FROM teams WHERE ID = " + id;
-                    db.Delete(query);
-                    MessageBox.Show("Poisto onnistui!");
+                    db.ManageDatabase(query);
+                    // MessageBox.Show("Poisto onnistui!");
                     SelectTeamManagement();
                 }
             }
@@ -159,6 +143,16 @@ namespace Hockey_Database
             {
                 MessageBox.Show("Et ole valinnut poistettavaa riviä!");
             }
+        }
+
+        private void lblTooltip_MouseHover_1(object sender, EventArgs e)
+        {
+            toolTipTeamManagement.Show("Valitse alasvetovalikosta tietokannan taulu, jota haluat muokata. \n" +
+                            "Jos haluat lisätä tauluun tietoa, kirjoita tiedot kenttiin ja paina \n" +
+                            "'Tallenna'-painiketta. Jos haluat muokata jo olemassa olevaa tieta, \n" +
+                            "valitse haluamasi rivi ja muokkaa tietoja kentistä. Paina muokkauksen \n" +
+                            "jäkeen 'Tallenna'-painiketta. Poistaminen onnistuu valitsemalla ensin rivi \n" +
+                            "ja sen jälkeen painamalla 'Poista'-painiketta. ", lblTooltip);
         }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dgPlayerManagement = new System.Windows.Forms.DataGridView();
             this.panel_pm = new System.Windows.Forms.Panel();
             this.cmbTeams_pm = new System.Windows.Forms.ComboBox();
@@ -45,6 +46,8 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.lblTooltip = new System.Windows.Forms.Label();
+            this.toolTipPlayerManagement = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgPlayerManagement)).BeginInit();
             this.panel_pm.SuspendLayout();
             this.rbgPostion_pm.SuspendLayout();
@@ -225,11 +228,22 @@
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // lblTooltip
+            // 
+            this.lblTooltip.AutoSize = true;
+            this.lblTooltip.Location = new System.Drawing.Point(890, 395);
+            this.lblTooltip.Name = "lblTooltip";
+            this.lblTooltip.Size = new System.Drawing.Size(13, 13);
+            this.lblTooltip.TabIndex = 5;
+            this.lblTooltip.Text = "?";
+            this.lblTooltip.MouseHover += new System.EventHandler(this.lblTooltip_MouseHover);
+            // 
             // PlayerManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(920, 421);
+            this.ClientSize = new System.Drawing.Size(915, 421);
+            this.Controls.Add(this.lblTooltip);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDel);
@@ -244,6 +258,7 @@
             this.rbgPostion_pm.ResumeLayout(false);
             this.rbgPostion_pm.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -266,5 +281,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ComboBox cmbTeams_pm;
+        private System.Windows.Forms.Label lblTooltip;
+        private System.Windows.Forms.ToolTip toolTipPlayerManagement;
     }
 }

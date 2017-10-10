@@ -12,12 +12,6 @@ namespace Hockey_Database
 {
     public partial class OtherManagement : Form
     {
-        string coachesQuery = "SELECT * FROM coaches";
-
-        string leagueQuery = "SELECT * FROM leagues";
-
-        string stadiumQuery = "SELECT * FROM stadiums";
-
         dbConnect db = new dbConnect();
 
         int id;
@@ -29,7 +23,7 @@ namespace Hockey_Database
 
         private void SelectCoachManagement()
         {
-            dgOtherManagement.DataSource = db.Select(coachesQuery);
+            dgOtherManagement.DataSource = db.Select(db.coachQuery);
 
             dgOtherManagement.Columns[0].HeaderText = "ID:";
             dgOtherManagement.Columns[1].HeaderText = "Valmentajan nimi:";
@@ -41,7 +35,7 @@ namespace Hockey_Database
 
        private void SelectLeagueManagement()
         {
-            dgOtherManagement.DataSource = db.Select(leagueQuery);
+            dgOtherManagement.DataSource = db.Select(db.leagueQuery);
 
             dgOtherManagement.Columns[0].HeaderText = "ID:";
             dgOtherManagement.Columns[1].HeaderText = "Liigan nimi:";
@@ -53,7 +47,7 @@ namespace Hockey_Database
 
         private void SelectStadiumManagement()
         {
-            dgOtherManagement.DataSource = db.Select(stadiumQuery);
+            dgOtherManagement.DataSource = db.Select(db.stadiumQuery);
 
             dgOtherManagement.Columns[0].HeaderText = "ID:";
             dgOtherManagement.Columns[1].HeaderText = "Stadionin nimi:";
@@ -137,16 +131,16 @@ namespace Hockey_Database
                 if (dt.Rows.Count > 0)
                 {
                     string query = "UPDATE " + table + " SET name='" + txtNameOtherManagement.Text + "' WHERE ID=" + id;
-                    db.Update(query);
-                    MessageBox.Show("Tietojen päivitys onnitui!");
+                    db.ManageDatabase(query);
+                    //MessageBox.Show("Tietojen päivitys onnitui!");
                     UpdateDataGridView();
 
                 }
                 else
                 {
                     string query = "INSERT INTO " + table + " (name) VALUES ('" + txtNameOtherManagement.Text + "');";
-                    db.Insert(query);
-                    MessageBox.Show("Tietojen lisäys onnitui!");
+                    db.ManageDatabase(query);
+                    //MessageBox.Show("Tietojen lisäys onnitui!");
                     UpdateDataGridView();
                 }
             }
@@ -154,7 +148,6 @@ namespace Hockey_Database
             {
                 MessageBox.Show("Täytä kentät!");
             }
-
 
         }
 
@@ -183,8 +176,8 @@ namespace Hockey_Database
                 if (MessageBox.Show(warning, "Varoitus", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     string query = "DELETE FROM " + table + " WHERE ID = " + id;
-                    db.Delete(query);
-                    MessageBox.Show("Poisto onnistui!");
+                    db.ManageDatabase(query);
+                    //MessageBox.Show("Poisto onnistui!");
                     UpdateDataGridView();
                     txtNameOtherManagement.Text = "";
                 }
@@ -193,6 +186,16 @@ namespace Hockey_Database
             {
                 MessageBox.Show("Et ole valinnut poistettavaa riviä!");
             }
+        }
+
+        private void lblTooltip_MouseHover(object sender, EventArgs e)
+        {
+            toolTipOtherManagement.Show("Valitse alasvetovalikosta tietokannan taulu, jota haluat muokata. \n" +
+                                        "Jos haluat lisätä tauluun tietoa, kirjoita tiedot kenttiin ja paina \n" +
+                                        "'Tallenna'-painiketta. Jos haluat muokata jo olemassa olevaa tieta, \n" +
+                                        "valitse haluamasi rivi ja muokkaa tietoja kentistä. Paina muokkauksen \n" +
+                                        "jäkeen 'Tallenna'-painiketta. Poistaminen onnistuu valitsemalla ensin rivi \n" +
+                                        "ja sen jälkeen painamalla 'Poista'-painiketta. ", lblTooltip);
         }
     }
 }

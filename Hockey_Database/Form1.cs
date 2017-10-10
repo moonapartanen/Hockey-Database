@@ -16,30 +16,6 @@ namespace Hockey_Database
 {
     public partial class HockeyDatabase : Form
     {
-        // SQL-QUERYT TÄSSÄ, JOS TULEE ESIMERKIKSI KANTAAN MUUTOKSIA
-
-        public string playersQuery = "SELECT players.name, players.dateOfBirth, teams.name, leagues.name, players.number, positions.position " +
-                                     "FROM players " +
-                                     "INNER JOIN teams ON players.team_ID = teams.ID " +
-                                     "INNER JOIN leagues ON teams.league_ID = leagues.ID " +
-                                     "INNER JOIN positions ON players.position_ID = positions.ID; ";
-
-        public string yearOfBirthQuery = "SELECT DISTINCT SUBSTRING(dateOfBirth, 1, 4) " +
-                                         "FROM players " +
-                                         "ORDER BY SUBSTRING(dateOfBirth, 1, 4) ASC;";
-
-        public string leagueQuery = "SELECT DISTINCT name " +
-                                    "FROM leagues";
-
-        public string positionQuery = "SELECT DISTINCT position " +
-                                      "FROM positions";
-
-        public string teamsQuery = "SELECT teams.name, coaches.name, stadiums.name, leagues.name " +
-                                   "FROM teams " +
-                                   "INNER JOIN coaches ON teams.coach_ID = coaches.ID " +
-                                   "INNER JOIN leagues ON teams.league_ID = leagues.ID " +
-                                   "INNER JOIN stadiums ON teams.stadium_ID = stadiums.ID; ";
-
         // LUODAAN DB-OLIO
         dbConnect db = new dbConnect();   
 
@@ -50,34 +26,35 @@ namespace Hockey_Database
 
         private void Form1_Load(object sender, EventArgs e)     
         {       
-            db.OpenConnection();                                        // AVATAAN TIETOKANTAYHTEYS DB-OLIOLLA
+            db.OpenConnection(); // AVATAAN TIETOKANTAYHTEYS DB-OLIOLLA
             SelectAllPlayers();
             SelectAllTeams();
             FillComboBoxes();
+            db.Exit();  // SULJETAAN TIETOKANTA-YHTEYS LOPUKSI
         }
 
         private void FillComboBoxes()
         {
-            cmbLeagueTeams.DataSource = db.Select(leagueQuery);              // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
+            cmbLeagueTeams.DataSource = db.Select(db.leagueQuery);              // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
             cmbLeagueTeams.DisplayMember = "name";
             cmbLeagueTeams.SelectedIndex = -1;
 
-            cmbYears.DataSource = db.Select(yearOfBirthQuery);              // HAETAAN SYNTYMÄVUOSI-COMBOBOXIIN VUODET
+            cmbYears.DataSource = db.Select(db.yearOfBirthQuery);              // HAETAAN SYNTYMÄVUOSI-COMBOBOXIIN VUODET
             cmbYears.DisplayMember = "SUBSTRING(dateOfBirth, 1, 4)";
             cmbYears.SelectedIndex = -1;
 
-            cmbLeague.DataSource = db.Select(leagueQuery);                  // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
+            cmbLeague.DataSource = db.Select(db.leaguesMainQuery);                  // HAETAAN LIIGA-COMBOBOXIIN LIIGAT
             cmbLeague.DisplayMember = "name";
             cmbLeague.SelectedIndex = -1;
 
-            cmbPosition.DataSource = db.Select(positionQuery);              // HAETAAN PELIPAIKKA-COMBOBOXIIN PELIPAIKAT
+            cmbPosition.DataSource = db.Select(db.positionQuery);              // HAETAAN PELIPAIKKA-COMBOBOXIIN PELIPAIKAT
             cmbPosition.DisplayMember = "position";
             cmbPosition.SelectedIndex = -1;
         }
 
         private void SelectAllTeams()
         {
-            dgTeams.DataSource = db.Select(teamsQuery);                   // HAETAAN KAIKKI JOUKKUEIDEN TIEDOT TIETOKANNASTA
+            dgTeams.DataSource = db.Select(db.teamQuery);                   // HAETAAN KAIKKI JOUKKUEIDEN TIEDOT TIETOKANNASTA
 
             dgTeams.Columns[0].HeaderText = "Joukkue:";                  // VAIHDETAAN SUOMENKIELISIKSI HEADER-ROW:T
             dgTeams.Columns[1].HeaderText = "Päävalmentaja:";
@@ -88,7 +65,7 @@ namespace Hockey_Database
 
         private void SelectAllPlayers()
         {
-            dgPlayers.DataSource = db.Select(playersQuery);                // HAETAAN KAIKKI PELAAJIEN TIEDOT TIETOKANNASTA
+            dgPlayers.DataSource = db.Select(db.playersQuery);                // HAETAAN KAIKKI PELAAJIEN TIEDOT TIETOKANNASTA
 
             dgPlayers.Columns[0].HeaderText = "Pelaaja:";                  // VAIHDETAAN SUOMENKIELISIKSI HEADER-ROW:T
             dgPlayers.Columns[1].HeaderText = "Syntymäaika:";

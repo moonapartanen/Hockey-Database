@@ -28,15 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel_pm = new System.Windows.Forms.Panel();
+            this.lblOtherManagement = new System.Windows.Forms.Label();
+            this.cmbOtherManagement = new System.Windows.Forms.ComboBox();
             this.txtNameOtherManagement = new System.Windows.Forms.TextBox();
             this.lblName_om = new System.Windows.Forms.Label();
             this.dgOtherManagement = new System.Windows.Forms.DataGridView();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
-            this.cmbOtherManagement = new System.Windows.Forms.ComboBox();
-            this.lblOtherManagement = new System.Windows.Forms.Label();
+            this.lblTooltip = new System.Windows.Forms.Label();
+            this.toolTipOtherManagement = new System.Windows.Forms.ToolTip(this.components);
             this.panel_pm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgOtherManagement)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +55,29 @@
             this.panel_pm.Name = "panel_pm";
             this.panel_pm.Size = new System.Drawing.Size(203, 172);
             this.panel_pm.TabIndex = 3;
+            // 
+            // lblOtherManagement
+            // 
+            this.lblOtherManagement.AutoSize = true;
+            this.lblOtherManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOtherManagement.Location = new System.Drawing.Point(7, 25);
+            this.lblOtherManagement.Name = "lblOtherManagement";
+            this.lblOtherManagement.Size = new System.Drawing.Size(93, 16);
+            this.lblOtherManagement.TabIndex = 7;
+            this.lblOtherManagement.Text = "Valitse kohde:";
+            // 
+            // cmbOtherManagement
+            // 
+            this.cmbOtherManagement.FormattingEnabled = true;
+            this.cmbOtherManagement.Items.AddRange(new object[] {
+            "Valmentajat",
+            "Liigat",
+            "Stadionit"});
+            this.cmbOtherManagement.Location = new System.Drawing.Point(10, 44);
+            this.cmbOtherManagement.Name = "cmbOtherManagement";
+            this.cmbOtherManagement.Size = new System.Drawing.Size(172, 24);
+            this.cmbOtherManagement.TabIndex = 6;
+            this.cmbOtherManagement.SelectedIndexChanged += new System.EventHandler(this.cmbOtherManagement_SelectedIndexChanged);
             // 
             // txtNameOtherManagement
             // 
@@ -82,7 +108,7 @@
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Location = new System.Drawing.Point(41, 190);
+            this.btnClear.Location = new System.Drawing.Point(51, 190);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(153, 38);
             this.btnClear.TabIndex = 6;
@@ -93,7 +119,7 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(41, 234);
+            this.btnSave.Location = new System.Drawing.Point(51, 234);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(153, 37);
             this.btnSave.TabIndex = 7;
@@ -104,7 +130,7 @@
             // btnDel
             // 
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDel.Location = new System.Drawing.Point(41, 277);
+            this.btnDel.Location = new System.Drawing.Point(51, 277);
             this.btnDel.Name = "btnDel";
             this.btnDel.Size = new System.Drawing.Size(153, 37);
             this.btnDel.TabIndex = 8;
@@ -112,34 +138,22 @@
             this.btnDel.UseVisualStyleBackColor = true;
             this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
             // 
-            // cmbOtherManagement
+            // lblTooltip
             // 
-            this.cmbOtherManagement.FormattingEnabled = true;
-            this.cmbOtherManagement.Items.AddRange(new object[] {
-            "Valmentajat",
-            "Liigat",
-            "Stadionit"});
-            this.cmbOtherManagement.Location = new System.Drawing.Point(10, 44);
-            this.cmbOtherManagement.Name = "cmbOtherManagement";
-            this.cmbOtherManagement.Size = new System.Drawing.Size(172, 24);
-            this.cmbOtherManagement.TabIndex = 6;
-            this.cmbOtherManagement.SelectedIndexChanged += new System.EventHandler(this.cmbOtherManagement_SelectedIndexChanged);
-            // 
-            // lblOtherManagement
-            // 
-            this.lblOtherManagement.AutoSize = true;
-            this.lblOtherManagement.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOtherManagement.Location = new System.Drawing.Point(7, 25);
-            this.lblOtherManagement.Name = "lblOtherManagement";
-            this.lblOtherManagement.Size = new System.Drawing.Size(93, 16);
-            this.lblOtherManagement.TabIndex = 7;
-            this.lblOtherManagement.Text = "Valitse kohde:";
+            this.lblTooltip.AutoSize = true;
+            this.lblTooltip.Location = new System.Drawing.Point(9, 320);
+            this.lblTooltip.Name = "lblTooltip";
+            this.lblTooltip.Size = new System.Drawing.Size(13, 13);
+            this.lblTooltip.TabIndex = 10;
+            this.lblTooltip.Text = "?";
+            this.lblTooltip.MouseHover += new System.EventHandler(this.lblTooltip_MouseHover);
             // 
             // OtherManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 342);
+            this.Controls.Add(this.lblTooltip);
             this.Controls.Add(this.dgOtherManagement);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnSave);
@@ -152,6 +166,7 @@
             this.panel_pm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgOtherManagement)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -165,5 +180,7 @@
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Label lblOtherManagement;
         private System.Windows.Forms.ComboBox cmbOtherManagement;
+        private System.Windows.Forms.Label lblTooltip;
+        private System.Windows.Forms.ToolTip toolTipOtherManagement;
     }
 }

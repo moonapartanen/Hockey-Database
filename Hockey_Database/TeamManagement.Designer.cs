@@ -28,7 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel_pm = new System.Windows.Forms.Panel();
+            this.cmbLeagues_tm = new System.Windows.Forms.ComboBox();
+            this.cmbStadiums_tm = new System.Windows.Forms.ComboBox();
             this.cmbCoaches_tm = new System.Windows.Forms.ComboBox();
             this.txtName_tm = new System.Windows.Forms.TextBox();
             this.lblCoach_tm = new System.Windows.Forms.Label();
@@ -39,8 +42,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.dgTeamManagement = new System.Windows.Forms.DataGridView();
-            this.cmbStadiums_tm = new System.Windows.Forms.ComboBox();
-            this.cmbLeagues_tm = new System.Windows.Forms.ComboBox();
+            this.lblTooltip = new System.Windows.Forms.Label();
+            this.toolTipTeamManagement = new System.Windows.Forms.ToolTip(this.components);
             this.panel_pm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTeamManagement)).BeginInit();
             this.SuspendLayout();
@@ -60,6 +63,22 @@
             this.panel_pm.Name = "panel_pm";
             this.panel_pm.Size = new System.Drawing.Size(248, 256);
             this.panel_pm.TabIndex = 2;
+            // 
+            // cmbLeagues_tm
+            // 
+            this.cmbLeagues_tm.FormattingEnabled = true;
+            this.cmbLeagues_tm.Location = new System.Drawing.Point(10, 142);
+            this.cmbLeagues_tm.Name = "cmbLeagues_tm";
+            this.cmbLeagues_tm.Size = new System.Drawing.Size(223, 24);
+            this.cmbLeagues_tm.TabIndex = 12;
+            // 
+            // cmbStadiums_tm
+            // 
+            this.cmbStadiums_tm.FormattingEnabled = true;
+            this.cmbStadiums_tm.Location = new System.Drawing.Point(10, 88);
+            this.cmbStadiums_tm.Name = "cmbStadiums_tm";
+            this.cmbStadiums_tm.Size = new System.Drawing.Size(223, 24);
+            this.cmbStadiums_tm.TabIndex = 11;
             // 
             // cmbCoaches_tm
             // 
@@ -158,27 +177,22 @@
             this.dgTeamManagement.TabIndex = 8;
             this.dgTeamManagement.SelectionChanged += new System.EventHandler(this.dgTeamManagement_SelectionChanged);
             // 
-            // cmbStadiums_tm
+            // lblTooltip
             // 
-            this.cmbStadiums_tm.FormattingEnabled = true;
-            this.cmbStadiums_tm.Location = new System.Drawing.Point(10, 88);
-            this.cmbStadiums_tm.Name = "cmbStadiums_tm";
-            this.cmbStadiums_tm.Size = new System.Drawing.Size(223, 24);
-            this.cmbStadiums_tm.TabIndex = 11;
-            // 
-            // cmbLeagues_tm
-            // 
-            this.cmbLeagues_tm.FormattingEnabled = true;
-            this.cmbLeagues_tm.Location = new System.Drawing.Point(10, 142);
-            this.cmbLeagues_tm.Name = "cmbLeagues_tm";
-            this.cmbLeagues_tm.Size = new System.Drawing.Size(223, 24);
-            this.cmbLeagues_tm.TabIndex = 12;
+            this.lblTooltip.AutoSize = true;
+            this.lblTooltip.Location = new System.Drawing.Point(790, 312);
+            this.lblTooltip.Name = "lblTooltip";
+            this.lblTooltip.Size = new System.Drawing.Size(13, 13);
+            this.lblTooltip.TabIndex = 9;
+            this.lblTooltip.Text = "?";
+            this.lblTooltip.MouseHover += new System.EventHandler(this.lblTooltip_MouseHover_1);
             // 
             // TeamManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 334);
+            this.Controls.Add(this.lblTooltip);
             this.Controls.Add(this.dgTeamManagement);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnSave);
@@ -191,6 +205,7 @@
             this.panel_pm.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTeamManagement)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -209,5 +224,7 @@
         private System.Windows.Forms.DataGridView dgTeamManagement;
         private System.Windows.Forms.ComboBox cmbStadiums_tm;
         private System.Windows.Forms.ComboBox cmbLeagues_tm;
+        private System.Windows.Forms.Label lblTooltip;
+        private System.Windows.Forms.ToolTip toolTipTeamManagement;
     }
 }
