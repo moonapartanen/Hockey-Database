@@ -63,7 +63,7 @@ namespace Hockey_Database
                                          "ORDER BY SUBSTRING(dateOfBirth, 1, 4) ASC;";
 
         public string leaguesMainQuery = "SELECT DISTINCT name " +
-                                    "FROM leagues";
+                                         "FROM leagues";
 
         public string positionQuery = "SELECT DISTINCT position " +
                                       "FROM positions";

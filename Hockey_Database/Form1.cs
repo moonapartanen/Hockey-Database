@@ -12,8 +12,6 @@ using System.Data.SqlClient;
 using System.Collections;
 using System.Globalization;
 
-// testikommentti
-
 namespace Hockey_Database
 {
     public partial class HockeyDatabase : Form

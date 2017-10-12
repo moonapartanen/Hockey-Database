@@ -46,8 +46,8 @@
             this.btnDel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
-            this.lblTooltip = new System.Windows.Forms.Label();
             this.toolTipPlayerManagement = new System.Windows.Forms.ToolTip(this.components);
+            this.lblPlayerManagementHint = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgPlayerManagement)).BeginInit();
             this.panel_pm.SuspendLayout();
             this.rbgPostion_pm.SuspendLayout();
@@ -86,6 +86,7 @@
             this.cmbTeams_pm.Name = "cmbTeams_pm";
             this.cmbTeams_pm.Size = new System.Drawing.Size(223, 24);
             this.cmbTeams_pm.TabIndex = 10;
+            this.cmbTeams_pm.SelectedIndexChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // rbgPostion_pm
             // 
@@ -109,6 +110,7 @@
             this.rbGoalie_pm.TabStop = true;
             this.rbGoalie_pm.Text = "Maalivahti";
             this.rbGoalie_pm.UseVisualStyleBackColor = true;
+            this.rbGoalie_pm.CheckedChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // rbDefender_pm
             // 
@@ -120,6 +122,7 @@
             this.rbDefender_pm.TabStop = true;
             this.rbDefender_pm.Text = "Puolustaja";
             this.rbDefender_pm.UseVisualStyleBackColor = true;
+            this.rbDefender_pm.CheckedChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // rbForward_pm
             // 
@@ -131,6 +134,7 @@
             this.rbForward_pm.TabStop = true;
             this.rbForward_pm.Text = "Hyökkääjä";
             this.rbForward_pm.UseVisualStyleBackColor = true;
+            this.rbForward_pm.CheckedChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // txtNumber_pm
             // 
@@ -138,6 +142,7 @@
             this.txtNumber_pm.Name = "txtNumber_pm";
             this.txtNumber_pm.Size = new System.Drawing.Size(86, 22);
             this.txtNumber_pm.TabIndex = 7;
+            this.txtNumber_pm.TextChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // dpDateOfBirth_pm
             // 
@@ -147,6 +152,7 @@
             this.dpDateOfBirth_pm.Name = "dpDateOfBirth_pm";
             this.dpDateOfBirth_pm.Size = new System.Drawing.Size(223, 22);
             this.dpDateOfBirth_pm.TabIndex = 6;
+            this.dpDateOfBirth_pm.ValueChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // txtName_pm
             // 
@@ -154,6 +160,7 @@
             this.txtName_pm.Name = "txtName_pm";
             this.txtName_pm.Size = new System.Drawing.Size(223, 22);
             this.txtName_pm.TabIndex = 5;
+            this.txtName_pm.TextChanged += new System.EventHandler(this.PlayerManagement_panelChanged);
             // 
             // lblTeam_pm
             // 
@@ -198,9 +205,9 @@
             // btnDel
             // 
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDel.Location = new System.Drawing.Point(288, 371);
+            this.btnDel.Location = new System.Drawing.Point(288, 370);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(132, 37);
+            this.btnDel.Size = new System.Drawing.Size(132, 60);
             this.btnDel.TabIndex = 2;
             this.btnDel.Text = "Poista";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -209,9 +216,9 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(150, 371);
+            this.btnSave.Location = new System.Drawing.Point(150, 370);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(132, 37);
+            this.btnSave.Size = new System.Drawing.Size(132, 60);
             this.btnSave.TabIndex = 3;
             this.btnSave.Text = "Tallenna";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -220,30 +227,30 @@
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Location = new System.Drawing.Point(12, 371);
+            this.btnClear.Location = new System.Drawing.Point(12, 370);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(132, 37);
+            this.btnClear.Size = new System.Drawing.Size(132, 60);
             this.btnClear.TabIndex = 4;
             this.btnClear.Text = "Lisää uusi pelaaja";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // lblTooltip
+            // lblPlayerManagementHint
             // 
-            this.lblTooltip.AutoSize = true;
-            this.lblTooltip.Location = new System.Drawing.Point(890, 395);
-            this.lblTooltip.Name = "lblTooltip";
-            this.lblTooltip.Size = new System.Drawing.Size(13, 13);
-            this.lblTooltip.TabIndex = 5;
-            this.lblTooltip.Text = "?";
-            this.lblTooltip.MouseHover += new System.EventHandler(this.lblTooltip_MouseHover);
+            this.lblPlayerManagementHint.AutoSize = true;
+            this.lblPlayerManagementHint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerManagementHint.Location = new System.Drawing.Point(436, 360);
+            this.lblPlayerManagementHint.Name = "lblPlayerManagementHint";
+            this.lblPlayerManagementHint.Size = new System.Drawing.Size(29, 16);
+            this.lblPlayerManagementHint.TabIndex = 6;
+            this.lblPlayerManagementHint.Text = "test";
             // 
             // PlayerManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 421);
-            this.Controls.Add(this.lblTooltip);
+            this.ClientSize = new System.Drawing.Size(915, 442);
+            this.Controls.Add(this.lblPlayerManagementHint);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDel);
@@ -281,7 +288,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.ComboBox cmbTeams_pm;
-        private System.Windows.Forms.Label lblTooltip;
         private System.Windows.Forms.ToolTip toolTipPlayerManagement;
+        private System.Windows.Forms.Label lblPlayerManagementHint;
     }
 }

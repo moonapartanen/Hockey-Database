@@ -42,8 +42,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDel = new System.Windows.Forms.Button();
             this.dgTeamManagement = new System.Windows.Forms.DataGridView();
-            this.lblTooltip = new System.Windows.Forms.Label();
             this.toolTipTeamManagement = new System.Windows.Forms.ToolTip(this.components);
+            this.lblTeamManagementHint = new System.Windows.Forms.Label();
             this.panel_pm.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgTeamManagement)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +71,7 @@
             this.cmbLeagues_tm.Name = "cmbLeagues_tm";
             this.cmbLeagues_tm.Size = new System.Drawing.Size(223, 24);
             this.cmbLeagues_tm.TabIndex = 12;
+            this.cmbLeagues_tm.SelectedIndexChanged += new System.EventHandler(this.TeamManagement_panelChanged);
             // 
             // cmbStadiums_tm
             // 
@@ -79,6 +80,7 @@
             this.cmbStadiums_tm.Name = "cmbStadiums_tm";
             this.cmbStadiums_tm.Size = new System.Drawing.Size(223, 24);
             this.cmbStadiums_tm.TabIndex = 11;
+            this.cmbStadiums_tm.SelectedIndexChanged += new System.EventHandler(this.TeamManagement_panelChanged);
             // 
             // cmbCoaches_tm
             // 
@@ -87,6 +89,7 @@
             this.cmbCoaches_tm.Name = "cmbCoaches_tm";
             this.cmbCoaches_tm.Size = new System.Drawing.Size(223, 24);
             this.cmbCoaches_tm.TabIndex = 10;
+            this.cmbCoaches_tm.SelectedIndexChanged += new System.EventHandler(this.TeamManagement_panelChanged);
             // 
             // txtName_tm
             // 
@@ -94,6 +97,7 @@
             this.txtName_tm.Name = "txtName_tm";
             this.txtName_tm.Size = new System.Drawing.Size(223, 22);
             this.txtName_tm.TabIndex = 5;
+            this.txtName_tm.TextChanged += new System.EventHandler(this.TeamManagement_panelChanged);
             // 
             // lblCoach_tm
             // 
@@ -140,7 +144,7 @@
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.Location = new System.Drawing.Point(12, 285);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(132, 37);
+            this.btnClear.Size = new System.Drawing.Size(132, 61);
             this.btnClear.TabIndex = 5;
             this.btnClear.Text = "Lisää uusi joukkue";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -151,7 +155,7 @@
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Location = new System.Drawing.Point(150, 285);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(132, 37);
+            this.btnSave.Size = new System.Drawing.Size(132, 61);
             this.btnSave.TabIndex = 6;
             this.btnSave.Text = "Tallenna";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -162,7 +166,7 @@
             this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDel.Location = new System.Drawing.Point(288, 285);
             this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(132, 37);
+            this.btnDel.Size = new System.Drawing.Size(132, 61);
             this.btnDel.TabIndex = 7;
             this.btnDel.Text = "Poista";
             this.btnDel.UseVisualStyleBackColor = true;
@@ -177,22 +181,22 @@
             this.dgTeamManagement.TabIndex = 8;
             this.dgTeamManagement.SelectionChanged += new System.EventHandler(this.dgTeamManagement_SelectionChanged);
             // 
-            // lblTooltip
+            // lblTeamManagementHint
             // 
-            this.lblTooltip.AutoSize = true;
-            this.lblTooltip.Location = new System.Drawing.Point(790, 312);
-            this.lblTooltip.Name = "lblTooltip";
-            this.lblTooltip.Size = new System.Drawing.Size(13, 13);
-            this.lblTooltip.TabIndex = 9;
-            this.lblTooltip.Text = "?";
-            this.lblTooltip.MouseHover += new System.EventHandler(this.lblTooltip_MouseHover_1);
+            this.lblTeamManagementHint.AutoSize = true;
+            this.lblTeamManagementHint.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTeamManagementHint.Location = new System.Drawing.Point(435, 285);
+            this.lblTeamManagementHint.Name = "lblTeamManagementHint";
+            this.lblTeamManagementHint.Size = new System.Drawing.Size(29, 16);
+            this.lblTeamManagementHint.TabIndex = 9;
+            this.lblTeamManagementHint.Text = "test";
             // 
             // TeamManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 334);
-            this.Controls.Add(this.lblTooltip);
+            this.ClientSize = new System.Drawing.Size(831, 376);
+            this.Controls.Add(this.lblTeamManagementHint);
             this.Controls.Add(this.dgTeamManagement);
             this.Controls.Add(this.btnDel);
             this.Controls.Add(this.btnSave);
@@ -224,7 +228,7 @@
         private System.Windows.Forms.DataGridView dgTeamManagement;
         private System.Windows.Forms.ComboBox cmbStadiums_tm;
         private System.Windows.Forms.ComboBox cmbLeagues_tm;
-        private System.Windows.Forms.Label lblTooltip;
         private System.Windows.Forms.ToolTip toolTipTeamManagement;
+        private System.Windows.Forms.Label lblTeamManagementHint;
     }
 }

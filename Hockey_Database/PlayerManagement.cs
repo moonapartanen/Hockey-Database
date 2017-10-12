@@ -12,7 +12,6 @@ namespace Hockey_Database
 {
     public partial class PlayerManagement : Form
     {
-        // LUODAAN DB-OLIO
         dbConnect db = new dbConnect();
         int id, positionID;
 
@@ -21,7 +20,7 @@ namespace Hockey_Database
             InitializeComponent();
         }
 
-        private int GetPositionId()
+        private int GetPositionId()  // PALAUTTAA PELIPAIKAN ID:N
         {
             int positionID = 0;
 
@@ -58,9 +57,9 @@ namespace Hockey_Database
             }
 
             return ret;
-        }
+        }   // TARKISTUS, ONKO KENTTIÄ TYHJINÄ
 
-        private void SelectPlayerManagement()   // HAKEE TIEDOT DATAGRIDVIEWIIN
+        private void SelectPlayerManagement(string hintString)   // HAKEE TIEDOT DATAGRIDVIEWIIN, PÄIVITTÄÄ NÄKYMÄN
         {
             dgPlayerManagement.DataSource = db.Select(db.playerManagementQuery);
 
@@ -70,21 +69,31 @@ namespace Hockey_Database
             dgPlayerManagement.Columns[3].HeaderText = "Pelinumero:";
             dgPlayerManagement.Columns[4].HeaderText = "Joukkue:";
             dgPlayerManagement.Columns[5].HeaderText = "Pelipaikka:";
+
+            dgPlayerManagement.ClearSelection();
+
+            lblPlayerManagementHint.Text = hintString;
         }
 
         private void PlayerManagement_Load(object sender, EventArgs e)
-        {
-            //db.OpenConnection();   
-            SelectPlayerManagement();
+        {  
+            SelectPlayerManagement("Hallinnoi pelaajia: valitsemalla pelaajan listasta, \n" +
+                                   "voit muokata hänen tietojaan tai poistaa hänet. \n" +
+                                   "Uuden pelaajan voit lisätä kirjoittamalla tiedot kenttiin\n " +
+                                   "ja painamalla 'Tallenna'-painiketta.");
 
-            cmbTeams_pm.SelectedIndex = -1;
             cmbTeams_pm.DataSource = db.Select(db.teamsQuery);
             cmbTeams_pm.DisplayMember = "name";
             cmbTeams_pm.ValueMember = "ID";
+
+            EmptyFields();
         }
 
         private void dgPlayerManagement_SelectionChanged(object sender, EventArgs e)    // KUN ROW SELECTION VAIHTUU
         {
+            btnDel.Enabled = true;      // POISTO-NAPPI ENABLOITUU KUN VALITAAN JOKU PELAAJA
+            btnClear.Enabled = true;    // TYHJENNÄ-NAPPI ENABLOITUU KUN VALITAAN JOKU PELAAJA
+
             if (dgPlayerManagement.SelectedRows.Count > 0) 
             {
                 txtName_pm.Text = dgPlayerManagement.SelectedRows[0].Cells[1].Value + string.Empty;
@@ -109,45 +118,52 @@ namespace Hockey_Database
                 }
 
                 id = Convert.ToInt32(dgPlayerManagement.SelectedRows[0].Cells[0].Value);    // ID TALTEEN POISTOA TAI MUOKKAUSTA VARTEN
+
+                btnClear.Text = "Tyhjennä kentät uuden pelaajan tietoja varten";
+
+                lblPlayerManagementHint.Text = "Valitsit pelaajan " + txtName_pm.Text + ". \n" +
+                                               "Voit muokata pelaajan tietoja kirjoittamalla uudet arvot kenttiin \n" +
+                                               "ja painamalla 'Tallenna'-painiketta tai voit poistaa pelaajan \n" +
+                                               "painamalla 'Poista'-painiketta.";
             }
         }
 
-        private void btnClear_Click(object sender, EventArgs e)     // TYHJENNETÄÄN KENTÄT      TODO: TÄHÄN VARMASTI PAREMPI TAPA OLEMASSA
+        public void EmptyFields()  // TYHJENTÄÄ KENTÄT 
         {
             dgPlayerManagement.ClearSelection();       
             txtName_pm.Text = "";
             cmbTeams_pm.Text = "";      
             txtNumber_pm.Text = "";
-            dpDateOfBirth_pm.Text = "";
             rbForward_pm.Checked = false;
             rbDefender_pm.Checked = false;
             rbGoalie_pm.Checked = false;
             id = 0;
+            btnDel.Enabled = false;
+            btnClear.Enabled = false;
+            btnSave.Enabled = false;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)         
+        {
+            EmptyFields();
+            lblPlayerManagementHint.Text = "Kirjoita uuden pelaajan tiedot kenttiin ja paina 'Tallenna'-painiketta";
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (dgPlayerManagement.SelectedRows.Count > 0)
-            {
-                string query = "DELETE FROM players WHERE ID = " + dgPlayerManagement.SelectedRows[0].Cells[0].Value + string.Empty;
-                db.ManageDatabase(query);
-                //MessageBox.Show("Poisto onnistui!");
-                SelectPlayerManagement();
-            }
-            else
-            {
-                MessageBox.Show("Et ole valinnut poistettavaa riviä!");
-            }
+
+            string query = "DELETE FROM players WHERE ID = " + dgPlayerManagement.SelectedRows[0].Cells[0].Value + string.Empty;
+            db.ManageDatabase(query);
+            SelectPlayerManagement("Pelaajan " + txtName_pm.Text + " poisto onnistui.");
+            EmptyFields();
+            
         }
 
-        private void lblTooltip_MouseHover(object sender, EventArgs e)
+        private void PlayerManagement_panelChanged(object sender, EventArgs e)
         {
-            toolTipPlayerManagement.Show("Valitse alasvetovalikosta tietokannan taulu, jota haluat muokata. \n" +
-                            "Jos haluat lisätä tauluun tietoa, kirjoita tiedot kenttiin ja paina \n" +
-                            "'Tallenna'-painiketta. Jos haluat muokata jo olemassa olevaa tieta, \n" +
-                            "valitse haluamasi rivi ja muokkaa tietoja kentistä. Paina muokkauksen \n" +
-                            "jäkeen 'Tallenna'-painiketta. Poistaminen onnistuu valitsemalla ensin rivi \n" +
-                            "ja sen jälkeen painamalla 'Poista'-painiketta. ", lblTooltip);
+            btnClear.Text = "Tyhjennä kentät uuden pelaajan tietoja varten";
+            btnClear.Enabled = true;
+            btnSave.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -157,17 +173,14 @@ namespace Hockey_Database
 
             if(CheckIfEmpty())
             {
-                if (dt.Rows.Count > 0)
+                if (dt.Rows.Count > 0)  // TIETOJEN PÄIVITYS
                 {
-
                     string date = dpDateOfBirth_pm.Value.ToString("yyyy-MM-dd").Replace('.', '-');
                     string query = "UPDATE players SET name='" + txtName_pm.Text + "', dateOfBirth='" + date + "', number=" + txtNumber_pm.Text + ", team_ID=" + cmbTeams_pm.SelectedValue.ToString() + ", position_ID=" + GetPositionId() + " WHERE ID=" + id;
                     db.ManageDatabase(query);
-                    //MessageBox.Show("Tietojen päivitys onnistui!");
-                    SelectPlayerManagement();
-
+                    SelectPlayerManagement("Pelaajan " + txtName_pm.Text + " tietojen päivitys onnistui");
                 }
-                else
+                else    // TIETOJEN LISÄYS
                 {
                     string date = dpDateOfBirth_pm.Value.ToString("yyyy-MM-dd").Replace('.', '-');
                     string query = "INSERT INTO players (name, dateOfBirth, number, team_ID, position_ID) " +
@@ -176,13 +189,14 @@ namespace Hockey_Database
                                    + GetPositionId() + ");";
 
                     db.ManageDatabase(query);
-                    // MessageBox.Show("Tietojen lisäys onnistui!");
-                    SelectPlayerManagement();
+                    SelectPlayerManagement("Pelaajan " + txtName_pm.Text + " lisäys onnistui.");
                 }
+
+                EmptyFields();
             }
             else
             {
-                MessageBox.Show("Taytä kentät!");
+                lblPlayerManagementHint.Text = "Tietoja puuttuu, täytä kaikki kentät ja paina 'Tallenna'-painiketta.";
             }
         }
     }

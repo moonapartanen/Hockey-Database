@@ -24,15 +24,15 @@ namespace Hockey_Database
         {
             bool ret = true;
 
-            if (txtName_tm.Text.Length == 0 || cmbCoaches_tm.SelectedIndex == -1 || cmbLeagues_tm.SelectedIndex == -1 || cmbStadiums_tm.Text.Length == -1)
+            if (txtName_tm.Text.Length == 0 || cmbCoaches_tm.SelectedIndex < 0 || cmbLeagues_tm.SelectedIndex < 0 || cmbStadiums_tm.Text.Length < 0)
             {
                 ret = false;
             }
 
             return ret;
-        }
+        }   // TARKISTUS; ONKO TYHJIÄ KENTTIÄ
 
-        private void SelectTeamManagement()
+        private void SelectTeamManagement(string hintString)
         {
             dgTeamManagement.DataSource = db.Select(db.teamManagementQuery);
 
@@ -42,7 +42,9 @@ namespace Hockey_Database
             dgTeamManagement.Columns[3].HeaderText = "Liiga:";
             dgTeamManagement.Columns[4].HeaderText = "Päävalmentaja:";
 
-            dgTeamManagement.ClearSelection();  // POISTETAAN SAMALLA DATAGRIDVIEWIN VALINTA
+            dgTeamManagement.ClearSelection();  
+
+            lblTeamManagementHint.Text = hintString;
         }
 
         private void FillComboboxes()
@@ -67,12 +69,19 @@ namespace Hockey_Database
 
         private void TeamManagement_Load(object sender, EventArgs e)
         {
-            SelectTeamManagement();
+            SelectTeamManagement("Hallinnoi joukkueita: valitsemalla joukkueen listasta, \n" +
+                                 "voit muokata sen tietoja tai poistaa sen. \n" +
+                                 "Uuden joukkueen voit lisätä kirjoittamalla tiedot \n" +
+                                 "kenttiin ja painamalla 'Tallenna'-painiketta.");
             FillComboboxes();
+            EmptyFields();
         }
 
         private void dgTeamManagement_SelectionChanged(object sender, EventArgs e)
         {
+            btnDel.Enabled = true;      // POISTO-NAPPI ENABLOITUU KUN VALITAAN JOKU JOUKKUE
+            btnClear.Enabled = true;    // TYHJENNÄ-NAPPI ENABLOITUU KUN VALITAAN JOKU JOUKKUE
+
             if (dgTeamManagement.SelectedRows.Count > 0)
             {
                 txtName_tm.Text = dgTeamManagement.SelectedRows[0].Cells[1].Value + string.Empty;
@@ -82,17 +91,38 @@ namespace Hockey_Database
 
                 id = Convert.ToInt32(dgTeamManagement.SelectedRows[0].Cells[0].Value);    // ID TALTEEN POISTOA TAI MUOKKAUSTA VARTEN
             }
+
+            btnClear.Text = "Tyhjennä kentät uuden joukkueen tietoja varten";
+
+            lblTeamManagementHint.Text = "Valitsit joukkueen " + txtName_tm.Text + ". \n" +
+                               "Voit muokata joukkueen tietoja kirjoittamalla uudet arvot kenttiin \n" +
+                               "ja painamalla 'Tallenna'-painiketta tai voit poistaa joukkueen \n" +
+                               "painamalla 'Poista'-painiketta.";
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
+        private void EmptyFields()
         {
             dgTeamManagement.ClearSelection();
             txtName_tm.Text = "";
             cmbStadiums_tm.Text = "";
+            cmbStadiums_tm.SelectedIndex = -1;
             cmbLeagues_tm.Text = "";
+            cmbLeagues_tm.SelectedIndex = -1;
             cmbCoaches_tm.Text = "";
+            cmbCoaches_tm.SelectedIndex = -1;
 
             id = 0;
+
+            btnDel.Enabled = false;
+            btnClear.Enabled = false;
+            btnSave.Enabled = false;
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            EmptyFields();
+            lblTeamManagementHint.Text = "Kirjoita uuden joukkueen tiedot kenttiin ja \n" +
+                                         "paina 'Tallenna'-painiketta";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -106,8 +136,7 @@ namespace Hockey_Database
                 {
                     string query = "UPDATE teams SET name='" + txtName_tm.Text + "', stadium_ID=" + cmbStadiums_tm.SelectedValue.ToString() + ", league_ID=" + cmbLeagues_tm.SelectedValue.ToString() + ", coach_ID=" + cmbCoaches_tm.SelectedValue.ToString() + " WHERE ID=" + id;
                     db.ManageDatabase(query);
-                    // MessageBox.Show("Tietojen päivitys onnistui!");
-                    SelectTeamManagement();
+                    SelectTeamManagement("Joukkueen " + txtName_tm.Text + " tietojen päivitys onnistui");
 
                 }
                 else
@@ -116,43 +145,34 @@ namespace Hockey_Database
                                     "VALUES ('" + txtName_tm.Text + "', " + cmbStadiums_tm.SelectedValue.ToString() + ", " + cmbLeagues_tm.SelectedValue.ToString() + ", " + cmbCoaches_tm.SelectedValue.ToString() + ");";
 
                     db.ManageDatabase(query);
-                    // MessageBox.Show("Tietojen lisäys onnistui!");
-                    SelectTeamManagement();
+                    SelectTeamManagement("Joukkueen " + txtName_tm.Text + " lisäys onnistui.");
                 }
+
+                EmptyFields();
             }
             else
             {
-                MessageBox.Show("Täytä kentät!");
+               lblTeamManagementHint.Text = "Tietoja puuttuu, täytä kaikki kentät ja \n" +
+                                            "paina 'Tallenna'-painiketta.";
             }
          
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (dgTeamManagement.SelectedRows.Count > 0)
+            if (MessageBox.Show("Jos valitsemassasi joukkueessa on pelaajia, pelaajat poistetaan joukkueen mukana. Haluatko silti poistaa joukkueen?", "Varoitus", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                if (MessageBox.Show("Jos valitsemassasi joukkueessa on pelaajia, pelaajat poistetaan joukkueen mukana. Haluatko silti poistaa joukkueen?", "Varoitus", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    string query = "DELETE FROM teams WHERE ID = " + id;
-                    db.ManageDatabase(query);
-                    // MessageBox.Show("Poisto onnistui!");
-                    SelectTeamManagement();
-                }
-            }
-            else
-            {
-                MessageBox.Show("Et ole valinnut poistettavaa riviä!");
-            }
+                string query = "DELETE FROM teams WHERE ID = " + id;
+                db.ManageDatabase(query);
+                SelectTeamManagement("Joukkueen " + txtName_tm.Text + " poisto onnistui.");
+            }  
         }
 
-        private void lblTooltip_MouseHover_1(object sender, EventArgs e)
+        private void TeamManagement_panelChanged(object sender, EventArgs e)
         {
-            toolTipTeamManagement.Show("Valitse alasvetovalikosta tietokannan taulu, jota haluat muokata. \n" +
-                            "Jos haluat lisätä tauluun tietoa, kirjoita tiedot kenttiin ja paina \n" +
-                            "'Tallenna'-painiketta. Jos haluat muokata jo olemassa olevaa tieta, \n" +
-                            "valitse haluamasi rivi ja muokkaa tietoja kentistä. Paina muokkauksen \n" +
-                            "jäkeen 'Tallenna'-painiketta. Poistaminen onnistuu valitsemalla ensin rivi \n" +
-                            "ja sen jälkeen painamalla 'Poista'-painiketta. ", lblTooltip);
+            btnClear.Text = "Tyhjennä kentät uuden joukkueen tietoja varten";
+            btnClear.Enabled = true;
+            btnSave.Enabled = true;
         }
     }
 }
